@@ -1,3 +1,4 @@
+import babelpolyfill from 'babel-polyfill'
 import Vue from 'vue'
 import App from './App'
 import ElementUI from 'element-ui'
@@ -17,20 +18,26 @@ import Page3 from './components/nav1/Page3.vue'
 import Page4 from './components/nav2/Page4.vue'
 import Page5 from './components/nav2/Page5.vue'
 import Page6 from './components/nav3/Page6.vue'
+import echarts from './components/charts/echarts.vue'
 
 Vue.use(ElementUI)
 Vue.use(VueRouter)
 Vue.use(Vuex)
 
 const routes = [
-  { path: '/login', component: Login },
+  {
+    path: '/login',
+    component: Login,
+    hidden: true//不显示在导航中
+  },
   //{ path: '/main', component: Main },
   {
     path: '/',
     component: Home,
     name: '导航一',
+    iconCls: 'el-icon-message',//图标样式class
     children: [
-      { path: '/main', component: Main },
+      //{ path: '/main', component: Main },
       { path: '/table', component: Table, name: 'Table' },
       { path: '/form', component: Form, name: 'Form' },
       { path: '/page3', component: Page3, name: '页面3' },
@@ -40,6 +47,7 @@ const routes = [
     path: '/',
     component: Home,
     name: '导航二',
+    iconCls: 'fa fa-id-card-o',
     children: [
       { path: '/page4', component: Page4, name: '页面4' },
       { path: '/page5', component: Page5, name: '页面5' }
@@ -48,9 +56,20 @@ const routes = [
   {
     path: '/',
     component: Home,
-    name: '导航三',
+    name: '',
+    iconCls: 'fa fa-address-card',
+    leaf: true,//只有一个节点
     children: [
-      { path: '/page6', component: Page6, name: '' }
+      { path: '/page6', component: Page6, name: '导航三' }
+    ]
+  },
+  {
+    path: '/',
+    component: Home,
+    name: 'Charts',
+    iconCls: 'fa fa-bar-chart',
+    children: [
+      { path: '/echarts', component: echarts, name: 'echarts' }
     ]
   }
 ]
